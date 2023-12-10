@@ -93,6 +93,12 @@ public class StudentController {
 		return "redirect:/viewStudents";
 	}
 	
+	@GetMapping("/deleteCourse/{id}")
+    public String deleteCourse(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        courseService.deleteCourse(id);
+        return "redirect:/viewStudents";
+    }
+	
 	@GetMapping("/editCourse/{id}")
 	public String editCourse(@PathVariable Long id, Model model) {
 		model.addAttribute("course", courseService.findCourseById(id));

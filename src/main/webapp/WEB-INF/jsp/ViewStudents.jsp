@@ -88,6 +88,7 @@
             		<th>Name</th>
             		<th>Professor</th>
             		<th>Edit</th>
+            		<th>Delete</th>
             	</tr>
 
             	<c:forEach var="course" items="${cList}">
@@ -97,6 +98,9 @@
                 		<td>${course.professor}</td>
                 		<td><button type="button" class="btn btn-primary">
                 		    <a href="/editCourse/${course.id}">Edit</a>
+                		</button></td>
+                		<td><button type="button" class="btn btn-danger">
+                			<a href="/deleteCourse/${course.id}">Delete</a>
                 		</button></td>
                 	</tr>
 
