@@ -68,6 +68,8 @@ public class StudentController {
 	@GetMapping("/editStudent/{id}")
 	public String editStudent(@PathVariable Long id, Model model) {
 		model.addAttribute("student", studentService.findStudentById(id));
+		List<Course> courses = courseService.findAllCourses();
+        model.addAttribute("cList", courses);
 		
 		return "EditStudent";
 	}
