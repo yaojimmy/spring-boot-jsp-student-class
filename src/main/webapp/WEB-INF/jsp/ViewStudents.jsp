@@ -42,6 +42,8 @@
             		<th>Name</th>
             		<th>Email</th>
             		<th>Phone</th>
+            		<th>Edit</th>
+            		<th>Delete</th>
             	</tr>
 
             	<c:forEach var="student" items="${list}">
@@ -50,6 +52,12 @@
                 		<td>${student.name}</td>
                 		<td>${student.email}</td>
                 		<td>${student.phone}</td>
+                		<td><button type="button" class="btn btn-primary">
+                		    <a href="/editStudent/${student.id}">Edit</a>
+                		</button></td>
+                		<td><button type="button" class="btn btn-danger">
+                			<a href="/deleteStudent/${student.id}">Delete</a>
+                		</button></td>
                 	</tr>
 
             	</c:forEach>
@@ -57,6 +65,10 @@
             </table>
 
         </form:form>
+        
+        <button type="button" class="btn btn-primary btn-block">
+        	<a href="/addStudent">Add New Student</a>
+        </button>
 
     </div>
 

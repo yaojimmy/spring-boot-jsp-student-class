@@ -21,20 +21,28 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-	@GetMapping({"/", "/hello"})
+	@GetMapping("hello")
 	public String hello(@RequestParam(value="name", defaultValue="World", required=true) String name, Model model) {
 		model.addAttribute("name", name);
 		return "hello";
 	}
 	
 	
-	@GetMapping({"viewStudents"})
+	@GetMapping({"/", "/viewStudents"})
     public String getAllStudents(Model model) {
 		List<Student> students = studentService.findAllStudents();
 		System.out.println(students);
         model.addAttribute("list", students);
         return "ViewStudents";
     }
+	
+	/*
+	@GetMapping({"/addStudent"})
+	public String addStudent(Model model) {
+		model.addAttribute("student", new Student());
+		
+		return "AddStudents";
+	}
 
 	/*
     @GetMapping("/find/{id}")
