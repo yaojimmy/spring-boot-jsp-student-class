@@ -7,7 +7,7 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>Edit Student</title>
+    <title>Edit Course</title>
 
     <link rel="stylesheet"
         	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -25,9 +25,9 @@
 
     <div class="container">
 
-        <h1 class="p-3"> Edit Student </h1>
+        <h1 class="p-3"> Edit Course </h1>
 
-        <form:form action="/saveStudent" method="post" modelAttribute="student">
+        <form:form action="/saveCourse" method="post" modelAttribute="course">
 			<form:input path="id" type="hidden"/>
             <div class="row">
             	<div class="form-group col-md-12">
@@ -41,25 +41,14 @@
 
             <div class="row">
             	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="email">Email</label>
+            		<label class="col-md-3" for="professor">Professor</label>
             		<div class="col-md-6">
-            			<form:input type="email" path="email" id="email"
+            			<form:input type="text" path="professor" id="professor"
             				class="form-control input-sm" required="required" />
             		</div>
             	</div>
             </div>
             
-            <div class="row">
-            	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="phone">Phone</label>
-            		<div class="col-md-6">
-            			<form:input type="tel" path="phone" id="phone"
-            				placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            				class="form-control input-sm" required="required" />
-            			<small>Format: 123-456-7890</small>
-            		</div>
-            	</div>
-            </div>
 
             <div class="row p-2">
             	<div class="col-md-2">

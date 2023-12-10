@@ -31,7 +31,7 @@
 
             <div class="row">
             	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="title">Name</label>
+            		<label class="col-md-3" for="name">Name</label>
             		<div class="col-md-6">
             		    <form:input type="text" path="name" id="name"
             		        class="form-control input-sm" required="required" />
@@ -41,7 +41,7 @@
 
             <div class="row">
             	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="date">Email</label>
+            		<label class="col-md-3" for="email">Email</label>
             		<div class="col-md-6">
             			<form:input type="email" path="email" id="email"
             				class="form-control input-sm" required="required" />
@@ -51,7 +51,7 @@
             
             <div class="row">
             	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="status">Phone</label>
+            		<label class="col-md-3" for="phone">Phone</label>
             		<div class="col-md-6">
             			<form:input type="tel" path="phone" id="phone"
             			placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"

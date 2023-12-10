@@ -31,7 +31,7 @@
 
             <div class="row">
             	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="title">Name</label>
+            		<label class="col-md-3" for="name">Name</label>
             		<div class="col-md-6">
             		    <form:input type="text" path="name" id="name"
             		        class="form-control input-sm" required="required" />
@@ -41,7 +41,7 @@
 
             <div class="row">
             	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="date">Professor</label>
+            		<label class="col-md-3" for="professor">Professor</label>
             		<div class="col-md-6">
             			<form:input type="text" path="professor" id="professor"
             				class="form-control input-sm" required="required" />

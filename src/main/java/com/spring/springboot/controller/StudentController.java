@@ -93,6 +93,20 @@ public class StudentController {
 		return "redirect:/viewStudents";
 	}
 	
+	@GetMapping("/editCourse/{id}")
+	public String editCourse(@PathVariable Long id, Model model) {
+		model.addAttribute("course", courseService.findCourseById(id));
+		
+		return "EditCourse";
+	}
+	
+	@PostMapping("/saveCourse")
+	public String saveCourse(Course course, RedirectAttributes redirectAttributes) {
+		courseService.updateCourse(course);
+		
+		return "redirect:/viewStudents";
+	}
+	
 
 	/*
     @GetMapping("/find/{id}")
