@@ -43,7 +43,7 @@
             	<div class="form-group col-md-12">
             		<label class="col-md-3" for="date">Email</label>
             		<div class="col-md-6">
-            			<form:input type="text" path="email" id="email"
+            			<form:input type="email" path="email" id="email"
             				class="form-control input-sm" required="required" />
             		</div>
             	</div>
@@ -53,8 +53,10 @@
             	<div class="form-group col-md-12">
             		<label class="col-md-3" for="status">Phone</label>
             		<div class="col-md-6">
-            			<form:input type="text" path="phone" id="phone"
-            				class="form-control input-sm" value="Incomplete" />
+            			<form:input type="tel" path="phone" id="phone"
+            			placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            				class="form-control input-sm" required="required" />
+            			<small>Format: 123-456-7890</small>
             		</div>
             	</div>
             </div>

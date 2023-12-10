@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,7 +35,6 @@ public class StudentController {
 	@GetMapping({"/", "/viewStudents"})
     public String getAllStudents(Model model) {
 		List<Student> students = studentService.findAllStudents();
-		System.out.println(students);
         model.addAttribute("list", students);
         return "ViewStudents";
     }
@@ -49,6 +50,26 @@ public class StudentController {
 	@PostMapping("/saveNewStudent")
 	public String saveNewStudent(Student student, RedirectAttributes redirectAttributes) {
 		studentService.addStudent(student);
+		
+		return "redirect:/viewStudents";
+	}
+	
+	@GetMapping("/deleteStudent/{id}")
+    public String deleteStudent(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        studentService.deleteStudent(id);
+        return "redirect:/viewStudents";
+    }
+	
+	@GetMapping("/editStudent/{id}")
+	public String editStudent(@PathVariable Long id, Model model) {
+		model.addAttribute("student", studentService.findStudentById(id));
+		
+		return "EditStudent";
+	}
+	
+	@PostMapping("/saveStudent")
+	public String saveStudent(Student student, RedirectAttributes redirectAttributes) {
+		studentService.updateStudent(student);
 		
 		return "redirect:/viewStudents";
 	}
@@ -71,11 +92,5 @@ public class StudentController {
     public String updateStudent(@RequestBody Student student) {
         Student updateStudent = studentService.updateStudent(student);
         return new ResponseEntity<>(updateStudent, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable("id") Long id) {
-        studentService.deleteStudent(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }*/
 }
