@@ -1,4 +1,4 @@
-package com.spring.springboot;
+package com.spring.springboot.service;
 
 import com.spring.springboot.exception.UserNotFoundException;
 import com.spring.springboot.model.Student;
