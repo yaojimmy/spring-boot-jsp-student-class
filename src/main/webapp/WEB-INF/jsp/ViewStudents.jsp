@@ -42,6 +42,7 @@
             		<th>Name</th>
             		<th>Email</th>
             		<th>Phone</th>
+            		<th>Courses</th>
             		<th>Edit</th>
             		<th>Delete</th>
             	</tr>
@@ -52,6 +53,10 @@
                 		<td>${student.name}</td>
                 		<td>${student.email}</td>
                 		<td>${student.phone}</td>
+                		<td><c:forEach var="courseId" items="${student.courseIds }">
+                		${course }
+                		</c:forEach>
+                		</td>
                 		<td><button type="button" class="btn btn-primary">
                 		    <a href="/editStudent/${student.id}">Edit</a>
                 		</button></td>
@@ -68,6 +73,37 @@
         
         <button type="button" class="btn btn-primary btn-block">
         	<a href="/addStudent">Add New Student</a>
+        </button>
+
+    </div>
+    <div class="container">
+
+        <h1 class="p-3"> Course List </h1>
+
+        <form:form>
+
+            <table class="table table-bordered">
+            	<tr>
+            		<th>Id</th>
+            		<th>Name</th>
+            		<th>Professor</th>
+            	</tr>
+
+            	<c:forEach var="course" items="${cList}">
+                    <tr>
+                		<td>${course.id}</td>
+                		<td>${course.name}</td>
+                		<td>${course.professor}</td>
+                	</tr>
+
+            	</c:forEach>
+
+            </table>
+
+        </form:form>
+        
+        <button type="button" class="btn btn-primary btn-block">
+        	<a href="/addCourse">Add New Course</a>
         </button>
 
     </div>

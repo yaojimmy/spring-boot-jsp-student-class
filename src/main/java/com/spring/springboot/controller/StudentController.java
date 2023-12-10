@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.springboot.model.Course;
 import com.spring.springboot.model.Student;
+import com.spring.springboot.service.CourseService;
 import com.spring.springboot.service.StudentService;
 
 @Controller
@@ -20,9 +21,11 @@ public class StudentController {
 	
 	@Autowired
 	private final StudentService studentService;
+	private final CourseService courseService;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, CourseService courseService) {
         this.studentService = studentService;
+        this.courseService = courseService;
     }
 
 	@GetMapping("hello")
@@ -36,6 +39,8 @@ public class StudentController {
     public String getAllStudents(Model model) {
 		List<Student> students = studentService.findAllStudents();
         model.addAttribute("list", students);
+		List<Course> courses = courseService.findAllCourses();
+        model.addAttribute("cList", courses);
         return "ViewStudents";
     }
 	
@@ -70,6 +75,20 @@ public class StudentController {
 	@PostMapping("/saveStudent")
 	public String saveStudent(Student student, RedirectAttributes redirectAttributes) {
 		studentService.updateStudent(student);
+		
+		return "redirect:/viewStudents";
+	}
+	
+	@GetMapping({"/addCourse"})
+	public String addCourse(Model model) {
+		model.addAttribute("course", new Course());
+		
+		return "AddCourse";
+	}
+	
+	@PostMapping("/saveNewCourse")
+	public String saveNewCourse(Course course, RedirectAttributes redirectAttributes) {
+		courseService.addCourse(course);
 		
 		return "redirect:/viewStudents";
 	}
