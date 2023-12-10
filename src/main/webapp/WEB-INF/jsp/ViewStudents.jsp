@@ -54,7 +54,9 @@
                 		<td>${student.email}</td>
                 		<td>${student.phone}</td>
                 		<td><c:forEach var="courseId" items="${student.courseIds }">
-                		${course }
+                			<c:forEach var="course" items="${cList }">
+                				<c:if test="${course.id == courseId}">${course.name }</c:if>
+                			</c:forEach>
                 		</c:forEach>
                 		</td>
                 		<td><button type="button" class="btn btn-primary">
