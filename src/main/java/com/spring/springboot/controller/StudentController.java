@@ -69,19 +69,51 @@ public class StudentController {
 	
 	@GetMapping("/editStudent/{id}")
 	public String editStudent(@PathVariable Long id, Model model) {
-		model.addAttribute("student", studentService.findStudentById(id));
-		List<Course> courses = courseService.findAllCourses();
-        model.addAttribute("cList", courses);
-        // add editStudent.
+		// Retrieve the student and available courses from the database
+	    Student student = studentService.findStudentById(id);
+	    List<Course> availableCourses = courseService.findAllCourses();
+	    Map<Long, String> availableCoursesMap = availableCourses.stream()
+	            .collect(Collectors.toMap(Course::getId, Course::getName));
+
+	    // Add the student and available courses to the model
+	    model.addAttribute("student", student);
+	    model.addAttribute("availableCourses", availableCourses);
+	    model.addAttribute("availableCoursesMap", availableCoursesMap);
 		
 		return "EditStudent";
 	}
 	
-	@PostMapping("/saveStudent")
-	public String saveStudent(Student student, RedirectAttributes redirectAttributes) {
+	@PostMapping("/saveStudent/{id}")
+	public String saveStudent(@PathVariable Long id,
+		            @RequestParam("courseIds") List<Long> selectedCourses, 
+		            @RequestParam Map<String, String> grades,
+		            RedirectAttributes redirectAttributes) {
+		
+		
+		// Retrieve the student from the database
+		Student student = studentService.findStudentById(id);
+		
+		Long courseId;
+		Integer grade;
+		
+		// Print grades
+		for (Map.Entry<String, String> entry : grades.entrySet()) {
+		try {
+		courseId = Long.parseLong(entry.getKey());
+		grade = Integer.parseInt(entry.getValue());
+		}
+		catch (NumberFormatException nfe) {
+		continue;
+		}
+		student.addGrade(courseId, grade);
+		System.out.println("CourseId: " + entry.getKey() + ", grade: " + entry.getValue());
+		}
+		
+		// Update the student's course list
+		student.setCourseIds(selectedCourses);
 		studentService.updateStudent(student);
 		
-		return "redirect:/viewStudents";
+		return "redirect:/viewStudents"; // Redirect to the student list page
 	}
 	
 	@GetMapping({"/addCourse"})
@@ -117,63 +149,4 @@ public class StudentController {
 		
 		return "redirect:/viewStudents";
 	}
-	
-	// Controller method to show the form
-	@GetMapping("/editStudentCourses/{id}")
-	public String editStudentCourses(@PathVariable Long id, Model model) {
-	    // Retrieve the student and available courses from the database
-	    Student student = studentService.findStudentById(id);
-	    List<Course> availableCourses = courseService.findAllCourses();
-	    Map<Long, String> availableCoursesMap = availableCourses.stream()
-	            .collect(Collectors.toMap(Course::getId, Course::getName));
-
-	    // Add the student and available courses to the model
-	    model.addAttribute("student", student);
-	    model.addAttribute("availableCourses", availableCourses);
-	    model.addAttribute("availableCoursesMap", availableCoursesMap);
-
-	    return "EditStudentCourses"; // JSP page name
-	}
-
-	// Controller method to process form submission
-	@PostMapping("/saveStudentCourses/{id}")
-	public String saveStudentCourses(@PathVariable Long id,
-	                                            @RequestParam("courseIds") List<Long> selectedCourses, 
-	                                            @RequestParam Map<String, String> grades,
-	                                            RedirectAttributes redirectAttributes) {
-		
-	    
-	    // Retrieve the student from the database
-	    Student student = studentService.findStudentById(id);
-	    
-	    Long courseId;
-	    Integer grade;
-	    
-		 // Print grades
-		for (Map.Entry<String, String> entry : grades.entrySet()) {
-			try {
-				courseId = Long.parseLong(entry.getKey());
-				grade = Integer.parseInt(entry.getValue());
-			}
-			catch (NumberFormatException nfe) {
-				continue;
-			}
-	        student.addGrade(courseId, grade);
-		    System.out.println("CourseId: " + entry.getKey() + ", grade: " + entry.getValue());
-		}
-
-	    // Update the student's course list
-	    student.setCourseIds(selectedCourses);
-	    studentService.updateStudent(student);
-
-	    return "redirect:/viewStudents"; // Redirect to the student list page
-	}
-	
-
-	/*
-    @GetMapping("/find/{id}")
-    public String getStudentById(@PathVariable("id") Long id) {
-        Student student = studentService.findStudentById(id);
-        return new ResponseEntity<>(student, HttpStatus.OK);
-    }*/
 }

@@ -68,10 +68,7 @@
                 		</td>
                 		<td>
 	                		<button type="button" class="btn btn-primary">
-	                		    <a href="/editStudent/${student.id}">Edit Info</a>
-	                		</button>
-	                		<button type="button" class="btn btn-primary">
-	                		    <a href="/editStudentCourses/${student.id}">Edit Courses</a>
+	                		    <a href="/editStudent/${student.id}">Edit</a>
 	                		</button>
                 		</td>
                 		<td><button type="button" class="btn btn-danger">
