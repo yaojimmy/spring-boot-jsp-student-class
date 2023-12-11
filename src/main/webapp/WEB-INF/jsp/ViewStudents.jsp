@@ -43,6 +43,7 @@
             		<th>Email</th>
             		<th>Phone</th>
             		<th>Courses</th>
+            		<th>Grades</th>
             		<th>Edit</th>
             		<th>Delete</th>
             	</tr>
@@ -59,9 +60,20 @@
                 			</c:forEach>
                 		</c:forEach>
                 		</td>
-                		<td><button type="button" class="btn btn-primary">
-                		    <a href="/editStudent/${student.id}">Edit</a>
-                		</button></td>
+                		<td><c:forEach var="courseId" items="${student.courseIds }">
+                			<c:forEach var="course" items="${cList }">
+                				<c:if test="${course.id == courseId}">${student.courseGrades.get(courseId) }</c:if>
+                			</c:forEach>
+                		</c:forEach>
+                		</td>
+                		<td>
+	                		<button type="button" class="btn btn-primary">
+	                		    <a href="/editStudent/${student.id}">Edit Info</a>
+	                		</button>
+	                		<button type="button" class="btn btn-primary">
+	                		    <a href="/editStudentCourses/${student.id}">Edit Courses</a>
+	                		</button>
+                		</td>
                 		<td><button type="button" class="btn btn-danger">
                 			<a href="/deleteStudent/${student.id}">Delete</a>
                 		</button></td>

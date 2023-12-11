@@ -39,4 +39,14 @@ public class StudentService {
     public void deleteStudent(Long id) {
         studentRepo.deleteStudentById(id);
     }
+    
+    public Student addStudentCourse(Student student, Long courseId) {
+    	student.addCourse(courseId);
+    	return studentRepo.save(student);
+    }
+    
+    public Student deleteStudentCourse(Student student, Long courseId) {
+    	student.removeCourse(courseId);
+        return studentRepo.save(student);
+    }
 }

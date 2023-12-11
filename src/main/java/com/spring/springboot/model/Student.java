@@ -17,9 +17,9 @@ public class Student implements Serializable {
     @Column(nullable = false, updatable = false)
     private String studentCode;
     @ElementCollection
-    private List<Integer> courseIds;
+    private List<Long> courseIds;
     @ElementCollection
-    private Map<Integer, Integer> courseGrades;
+    private Map<Long, Integer> courseGrades;
 
     public Student() {
         this.courseIds = new ArrayList<>();
@@ -84,31 +84,35 @@ public class Student implements Serializable {
         this.studentCode = studentCode;
     }
 
-    public List<Integer> getCourseIds() {
+    public List<Long> getCourseIds() {
         return courseIds;
     }
 
-    public void setCourseIds(List<Integer> courseIds) {
+    public void setCourseIds(List<Long> courseIds) {
         this.courseIds = courseIds;
     }
 
-    public Map<Integer, Integer> getCourseGrades() {
+    public Map<Long, Integer> getCourseGrades() {
         return this.courseGrades;
     }
-    public void setCourseGrades(Map<Integer, Integer> courseGrades) {
+    public void setCourseGrades(Map<Long, Integer> courseGrades) {
         this.courseGrades = courseGrades;
     }
+    
+    public void addCourse(Long courseId) {
+    	courseIds.add(courseId);
+    }
 
-    public void addGrade(Integer courseId, Integer grade) {
+    public void addGrade(Long courseId, Integer grade) {
         courseGrades.put(courseId, grade);
     }
 
-    public void removeCourse(Integer courseId) {
+    public void removeCourse(Long courseId) {
         courseIds.remove(courseId);
         courseGrades.remove(courseId);
     }
 
-    public void removeGrade(Integer courseId) {
+    public void removeGrade(Long courseId) {
         courseGrades.remove(courseId);
     }
 }

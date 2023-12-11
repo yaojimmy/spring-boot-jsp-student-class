@@ -70,6 +70,7 @@ public class StudentController {
 		model.addAttribute("student", studentService.findStudentById(id));
 		List<Course> courses = courseService.findAllCourses();
         model.addAttribute("cList", courses);
+        // add editStudent.
 		
 		return "EditStudent";
 	}
@@ -115,23 +116,45 @@ public class StudentController {
 		return "redirect:/viewStudents";
 	}
 	
+	// Controller method to show the form
+	@GetMapping("/editStudentCourses/{id}")
+	public String editStudentCourses(@PathVariable Long id, Model model) {
+	    // Retrieve the student and available courses from the database
+	    Student student = studentService.findStudentById(id);
+	    List<Course> availableCourses = courseService.findAllCourses();
+
+	    // Add the student and available courses to the model
+	    model.addAttribute("student", student);
+	    model.addAttribute("availableCourses", availableCourses);
+
+	    return "EditStudentCourses"; // JSP page name
+	}
+
+	// Controller method to process form submission
+	@PostMapping("/saveStudentCourses/{id}")
+	public String saveStudentCourses(@PathVariable Long id,
+	                                            @RequestParam("courseIds") List<Long> selectedCourses, 
+	                                            RedirectAttributes redirectAttributes) {
+		
+		// Log the received parameters
+	    System.out.println("ID: " + id);
+	    System.out.println("Selected Courses: " + selectedCourses);
+	    
+	    // Retrieve the student from the database
+	    Student student = studentService.findStudentById(id);
+
+	    // Update the student's course list
+	    student.setCourseIds(selectedCourses);
+	    studentService.updateStudent(student);
+
+	    return "redirect:/viewStudents"; // Redirect to the student list page
+	}
+	
 
 	/*
     @GetMapping("/find/{id}")
     public String getStudentById(@PathVariable("id") Long id) {
         Student student = studentService.findStudentById(id);
         return new ResponseEntity<>(student, HttpStatus.OK);
-    }
-
-    @PostMapping("/add")
-    public String addStudent(@RequestBody Student student) {
-        Student newStudent = studentService.addStudent(student);
-        return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/update")
-    public String updateStudent(@RequestBody Student student) {
-        Student updateStudent = studentService.updateStudent(student);
-        return new ResponseEntity<>(updateStudent, HttpStatus.OK);
     }*/
 }

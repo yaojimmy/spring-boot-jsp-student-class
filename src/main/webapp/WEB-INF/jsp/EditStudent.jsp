@@ -61,35 +61,7 @@
             	</div>
             </div>
             
-            <div class="row">
-            	<div class="form-group col-md-12">
-            		<label class="col-md-3" for="name">Courses</label>
-            		<table class="table table-bordered">
-            	<tr>
-            		<th>Course Name</th>
-            		<th>Course Professor</th>
-            		<th>Edit</th>
-            		<th>Delete</th>
-            	</tr>
-            		<c:forEach var="courseId" items="${student.courseIds }">
-                			<c:forEach var="course" items="${cList }">
-                				<c:if test="${course.id == courseId}">
-	                				<tr>
-		                				<td>${course.name }</td>
-		                				<td>${course.professor }</td>
-		                				<td><button type="button" class="btn btn-primary">
-				                		    <a href="/editCourse/${course.id}">Edit</a>
-				                		</button></td>
-				                		<td><button type="button" class="btn btn-danger">
-				                			<a href="/deleteCourse/${course.id}">Delete</a>
-				                		</button></td>
-			                		</tr>
-                				</c:if>
-                			</c:forEach>
-                		</c:forEach>
-                		
-            	</div>
-            </div>
+			
 
             <div class="row p-2">
             	<div class="col-md-2">
