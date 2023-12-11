@@ -56,13 +56,13 @@
                 		<td>${student.phone}</td>
                 		<td><c:forEach var="courseId" items="${student.courseIds }">
                 			<c:forEach var="course" items="${cList }">
-                				<c:if test="${course.id == courseId}">${course.name }</c:if>
+                				<c:if test="${course.id == courseId}">${course.name }<br></c:if>
                 			</c:forEach>
                 		</c:forEach>
                 		</td>
                 		<td><c:forEach var="courseId" items="${student.courseIds }">
                 			<c:forEach var="course" items="${cList }">
-                				<c:if test="${course.id == courseId}">${student.courseGrades.get(courseId) }</c:if>
+                				<c:if test="${course.id == courseId}">${student.courseGrades.get(courseId) }<br></c:if>
                 			</c:forEach>
                 		</c:forEach>
                 		</td>

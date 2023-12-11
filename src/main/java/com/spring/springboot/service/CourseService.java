@@ -4,6 +4,8 @@ import com.spring.springboot.exception.CourseNotFoundException;
 import com.spring.springboot.model.Course;
 import com.spring.springboot.repo.CourseRepo;
 import jakarta.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class CourseService {
     private final CourseRepo courseRepo;
 
+    @Autowired
     public CourseService(CourseRepo courseRepo) {
         this.courseRepo = courseRepo;
     }

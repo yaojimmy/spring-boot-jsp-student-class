@@ -25,6 +25,22 @@
 
         <!-- Display student information -->
         <h2>Edit Courses for ${student.name}</h2>
+        
+        <!-- Display existing courses and grades -->
+	    <table class="table table-bordered">
+	        <tr>
+	            <th>Course</th>
+	            <th>Grade</th>
+	        </tr>
+	        <c:forEach var="courseId" items="${student.courseIds}">
+	            <tr>
+	                <td>${availableCoursesMap[courseId]}</td>
+	                <td>
+	                    <input type="number" name="${courseId}" value="${student.courseGrades[courseId]}"/>
+	                </td>
+	            </tr>
+	        </c:forEach>
+	    </table>
 
         <!-- Display available courses -->
         <label>Select Courses:</label>

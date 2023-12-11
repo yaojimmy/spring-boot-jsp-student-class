@@ -1,6 +1,8 @@
 package com.spring.springboot.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -122,10 +124,13 @@ public class StudentController {
 	    // Retrieve the student and available courses from the database
 	    Student student = studentService.findStudentById(id);
 	    List<Course> availableCourses = courseService.findAllCourses();
+	    Map<Long, String> availableCoursesMap = availableCourses.stream()
+	            .collect(Collectors.toMap(Course::getId, Course::getName));
 
 	    // Add the student and available courses to the model
 	    model.addAttribute("student", student);
 	    model.addAttribute("availableCourses", availableCourses);
+	    model.addAttribute("availableCoursesMap", availableCoursesMap);
 
 	    return "EditStudentCourses"; // JSP page name
 	}
@@ -134,14 +139,28 @@ public class StudentController {
 	@PostMapping("/saveStudentCourses/{id}")
 	public String saveStudentCourses(@PathVariable Long id,
 	                                            @RequestParam("courseIds") List<Long> selectedCourses, 
+	                                            @RequestParam Map<String, String> grades,
 	                                            RedirectAttributes redirectAttributes) {
 		
-		// Log the received parameters
-	    System.out.println("ID: " + id);
-	    System.out.println("Selected Courses: " + selectedCourses);
 	    
 	    // Retrieve the student from the database
 	    Student student = studentService.findStudentById(id);
+	    
+	    Long courseId;
+	    Integer grade;
+	    
+		 // Print grades
+		for (Map.Entry<String, String> entry : grades.entrySet()) {
+			try {
+				courseId = Long.parseLong(entry.getKey());
+				grade = Integer.parseInt(entry.getValue());
+			}
+			catch (NumberFormatException nfe) {
+				continue;
+			}
+	        student.addGrade(courseId, grade);
+		    System.out.println("CourseId: " + entry.getKey() + ", grade: " + entry.getValue());
+		}
 
 	    // Update the student's course list
 	    student.setCourseIds(selectedCourses);
